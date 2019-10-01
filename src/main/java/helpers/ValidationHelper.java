@@ -1,3 +1,6 @@
+package helpers;
+
+import domain.TankerOptimizationTask;
 import org.apache.commons.lang3.Range;
 
 public class ValidationHelper {

@@ -1,31 +1,16 @@
+package domain;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class EfficientDeliveryOptimizer {
+public class EfficientDeliveryOptimizerEngine {
     private final List<String> efficientSolutionsList = new ArrayList<>();
     private final int minOilLeft;
 
-    public EfficientDeliveryOptimizer(TankerOptimizationTask tankerOptimizationTask) {
+    public EfficientDeliveryOptimizerEngine(TankerOptimizationTask tankerOptimizationTask) {
         minOilLeft = find(tankerOptimizationTask.tankerCapacityArray, tankerOptimizationTask.oilAmount, "", tankerOptimizationTask.oilAmount, efficientSolutionsList);
-        if (minOilLeft > 0) {
-            // min oil we need to add
-            System.out.println(minOilLeft);
-        } else {
-            //Sort efficient deliveries
-            Collections.sort(efficientSolutionsList);
-            //print to console
-            efficientSolutionsList.forEach(es -> System.out.println(es));
-        }
-    }
-
-    public List<String> getEfficientSolutionsList() {
-        return efficientSolutionsList;
-    }
-
-    public int getMinOilLeft() {
-        return minOilLeft;
     }
 
     private int find(List<Integer> tankers, int barrels, String accumulator, int minOilLeft, List<String> efficientSolutions) {
@@ -49,6 +34,15 @@ public class EfficientDeliveryOptimizer {
             minOilLeft = find(tankers.subList(1, tankers.size()), barrels - (noOfTankers * tankerCapacity), sol, minOilLeft, efficientSolutions);
             noOfTankers--;
         }
+        return minOilLeft;
+    }
+
+    public List<String> getEfficientSolutionsList() {
+        Collections.sort(efficientSolutionsList);
+        return efficientSolutionsList;
+    }
+
+    public int getMinOilLeft() {
         return minOilLeft;
     }
 }
