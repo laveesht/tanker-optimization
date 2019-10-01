@@ -8,7 +8,8 @@ Prerequiste
 How to Run
 =
 `mvn clean install`
-Main is Starter.java 
+
+`Main is Starter.java`
 
 Summary - Load your tankers with oil
 
