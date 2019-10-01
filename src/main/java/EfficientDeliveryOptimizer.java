@@ -11,7 +11,7 @@ public class EfficientDeliveryOptimizer {
         int minOilLeft = find(tankers, barrels, "", barrels, efficientSolutionsList);
         if (minOilLeft > 0) {
             // min oil we need to add
-            out.println("Efficient Deliveries oil needed::" + (tankers.get(0) - minOilLeft));
+            out.println("Efficient Deliveries oil needed::" + minOilLeft);
         } else {
             out.println("Efficient Deliveries variations::");
             //Sort efficient deliveries
@@ -42,7 +42,6 @@ public class EfficientDeliveryOptimizer {
             minOilLeft = find(tankers.subList(1, tankers.size()), barrels - (noOfTankers * tankerCapacity), sol, minOilLeft, efficientSolutions);
             noOfTankers--;
         }
-
         return minOilLeft;
     }
 }
