@@ -1,5 +1,3 @@
-import org.apache.commons.lang3.Range;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,8 +12,9 @@ public class TankersOptimizationStarter {
         String input = "(2,3,5),5";
         List<Integer> tankers = Stream.of(input.substring(input.indexOf("(") + 1, input.indexOf(")")).split(",")).filter(v -> !v.isEmpty()).map(v -> Integer.parseInt(v)).collect(Collectors.toList());
         int barrels = Integer.parseInt(input.split(",")[input.split(",").length - 1]);
-        validateInputs(tankers, barrels);
+        ValidationHelper.validateInputs(tankers, barrels);
         int minOilLeft = tankerCombination(tankers, barrels, "", barrels);
+        //minOilLeft==0, atleast one efficient solution was found
         if (minOilLeft > 0) {
             // min oil we need to add
             System.out.println(tankers.get(0) - minOilLeft);
@@ -23,7 +22,6 @@ public class TankersOptimizationStarter {
     }
 
     private static int tankerCombination(List<Integer> tankers, int barrels, String solution, int minOilLeft) {
-
         int tankerCapacity = tankers.get(0);
         int noOfTankers = barrels / tankerCapacity;
         int oilLeft = barrels % tankerCapacity;
@@ -45,23 +43,5 @@ public class TankersOptimizationStarter {
         }
 
         return minOilLeft;
-    }
-
-    private static void validateInputs(List<Integer> tankers, int barrels) {
-        rangeChecker(2, 5, tankers.size());
-        for (Integer tankerCapacity : tankers) {
-            rangeChecker(2, 10000, tankerCapacity);
-        }
-        rangeChecker(1, 200000, barrels);
-    }
-
-
-    private static void rangeChecker(Integer start, Integer end, int testValue) {
-        if (!Range.between(start, end).contains(testValue)) {
-            throw new IllegalArgumentException("Input Rules:" +
-                    "    The number of tankers is in range [2, 5]\n" +
-                    "    A tanker's capacity is in range [2, 10000] barrels\n" +
-                    "    Oil amount is in range [1, 200000] barrels\n");
-        }
     }
 }
