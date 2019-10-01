@@ -2,26 +2,33 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static java.lang.System.out;
 
 public class EfficientDeliveryOptimizer {
+    private final List<String> efficientSolutionsList = new ArrayList<>();
+    private final int minOilLeft;
 
-    public static void find(List<Integer> tankers, int barrels) {
-        List<String> efficientSolutionsList = new ArrayList<>();
-        int minOilLeft = find(tankers, barrels, "", barrels, efficientSolutionsList);
+    public EfficientDeliveryOptimizer(TankerOptimizationTask tankerOptimizationTask) {
+        minOilLeft = find(tankerOptimizationTask.tankerCapacityArray, tankerOptimizationTask.oilAmount, "", tankerOptimizationTask.oilAmount, efficientSolutionsList);
         if (minOilLeft > 0) {
             // min oil we need to add
-            out.println("Efficient Deliveries oil needed::" + minOilLeft);
+            System.out.println(minOilLeft);
         } else {
-            out.println("Efficient Deliveries variations::");
             //Sort efficient deliveries
             Collections.sort(efficientSolutionsList);
             //print to console
-            efficientSolutionsList.forEach(es -> out.println(es));
+            efficientSolutionsList.forEach(es -> System.out.println(es));
         }
     }
 
-    private static int find(List<Integer> tankers, int barrels, String accumulator, int minOilLeft, List<String> efficientSolutions) {
+    public List<String> getEfficientSolutionsList() {
+        return efficientSolutionsList;
+    }
+
+    public int getMinOilLeft() {
+        return minOilLeft;
+    }
+
+    private int find(List<Integer> tankers, int barrels, String accumulator, int minOilLeft, List<String> efficientSolutions) {
         int tankerCapacity = tankers.get(0);
         int noOfTankers = barrels / tankerCapacity;
         int oilLeft = barrels % tankerCapacity;
